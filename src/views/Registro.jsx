@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export default function Registro() {
     return (
         <>
@@ -70,6 +72,15 @@ export default function Registro() {
                     />
                 </form>
             </div>
+
+            <nav className="mt-5">
+                {/* <a href="/auth/login">
+                    ¿Ya tienes cuenta? Inicia sesión
+                </a> */}
+                <Link to="/auth/login">
+                    ¿Ya tienes cuenta? Inicia sesión
+                </Link> {/* Evita recargar la pagina routing instantaneo */}
+            </nav>
         </>
     );
 }
