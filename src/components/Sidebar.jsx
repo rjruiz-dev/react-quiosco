@@ -9,6 +9,7 @@ export default function Sidebar() {
                 <img 
                     className="w-40" 
                     src="img/logo.svg"
+                    alt="Imagen Logo"
                 />
             </div>
 
@@ -20,9 +21,20 @@ export default function Sidebar() {
                     <Categoria 
                         // pasar el obj categorias al componente Categoria a traves de props (argumentos)
                         // se pueden pasar: string, booleanos, array, funciones
+                        // categoria={categoria}
+                        key={categoria.id}
                         categoria={categoria}
                     />
                 ))} 
+            </div>
+
+            <div className="my-5 px-5">
+                <button
+                    type="button"
+                    className="text-center bg-red-500 w-full p-3 font-bold text-white truncate"
+                >
+                    Cancelar Orden
+               </button>
             </div>
         </aside>
     )
