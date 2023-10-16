@@ -14,7 +14,7 @@ export default function Layout() {
         <div className='md:flex'> {/* de izq a der tamaño mediano */}
             <Sidebar />
 
-            <main className='flex-1'>
+            <main className='flex-1 h-screen overflow-y-scroll bg-gray-100 p-3'>
                 <Outlet /> {/* las rutas que vamos definiendo */}
             </main>
 
