@@ -12,7 +12,11 @@ export default function Inicio() {
             <p className='text-2xl my-10'>
                 Elige y personaliza tu pedio a continuación.
             </p>
-            {/* display de grid a los elem hijos */}
+            {/* display de grid a los elem hijos 
+                el grid habilita la grilla
+                el gap separacion entre columnas
+                grid-cols-(1,2,3) el tamaño segun la pantalla
+            */}
             <div className='grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
                 {productos.map(producto => (
                     <Producto 
