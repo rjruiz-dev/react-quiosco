@@ -4,14 +4,16 @@ export default function Categoria({categoria}) {
     // aqui cualquier codigo,logica de javascript 
     // console.log(props)
 
-    const {handleClickCategoria} = useQuiosco();
+    const {handleClickCategoria, categoriaActual} = useQuiosco();
 
     // aplicamos destructuring
     const {icono, id, nombre} = categoria
+ 
+    const resaltarCategoriaActual = () => categoriaActual.id === id ? 'bg-amber-400' : 'bg-white'
     
     // aqui lo que queremos representar
     return (
-        <div className="flex items-center gap-4  border w-full p-3 hover:bg-amber-400 cursor-pointer">
+        <div className={`${resaltarCategoriaActual()}flex items-center gap-4  border w-full p-3 hover:bg-amber-400 cursor-pointer`}>
             <img 
                 alt="Imagen Icono" 
                 src={`/img/icono_${icono}.svg`}
