@@ -1,8 +1,10 @@
-
+import useQuiosco from "../hooks/useQuiosco";
 export default function Categoria({categoria}) {
     
     // aqui cualquier codigo,logica de javascript 
     // console.log(props)
+
+    const {handleClickCategoria} = useQuiosco();
 
     // aplicamos destructuring
     const {icono, id, nombre} = categoria
@@ -15,7 +17,13 @@ export default function Categoria({categoria}) {
                 src={`/img/icono_${icono}.svg`}
                 className="w-12"
             /> 
-            <p className="text-lg font-bold cursor-pointer truncate">{nombre}</p>            
+            <button 
+                className="text-lg font-bold cursor-pointer truncate"
+                type="button"    
+                onClick={handleClickCategoria}
+            >
+                {nombre}
+            </button>            
         </div>
     );
 }
