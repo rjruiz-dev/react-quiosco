@@ -1,11 +1,12 @@
-import { createContext } from "react" // viene definida en react
-
+import { createContext, useState  } from "react" // viene definida en react
+import { categorias as categoriasDB } from "../data/categoria"
 // este context va a tener acceso a un metodo llamado provider
 const QuioscoContext = createContext()
 
 const QuioscoProvider = ({children}) => {
     // Aqui toda la logica
-    const autenticado = true;
+        const [categorias, setCategorias] =  useState(categoriasDB);
+       
     //  ----------------------------------------
     return (
         // en lugar de pasar los props de componente en componente, lo que coloco en el retrun, 
@@ -15,7 +16,7 @@ const QuioscoProvider = ({children}) => {
             value={ // la 1er {} es para indicar cod .js 
                 { // la 2da {} indica que es un obj
                     // lo que esta aqui, va a estar disponible en toda la app
-                    autenticado
+                    categorias
                 }
             }
         >{children}</QuioscoContext.Provider>

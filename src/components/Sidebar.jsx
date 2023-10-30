@@ -1,7 +1,10 @@
-import { categorias } from "../data/categoria"
+import useQuiosco from "../hooks/useQuiosco" 
 import Categoria from "../components/Categoria"
 
+
 export default function Sidebar() {
+
+    const { categorias } = useQuiosco()
     // Lo que este dentro del return es lo que se muestra en pantalla
     return (
         <aside className="md:w-72">
