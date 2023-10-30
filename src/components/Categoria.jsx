@@ -20,7 +20,8 @@ export default function Categoria({categoria}) {
             <button 
                 className="text-lg font-bold cursor-pointer truncate"
                 type="button"    
-                onClick={handleClickCategoria}
+                // onClick={handleClickCategoria}
+                onClick={()=> handleClickCategoria(id)} // call back para esparar a que suceda el evento
             >
                 {nombre}
             </button>            

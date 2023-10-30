@@ -10,11 +10,16 @@ const QuioscoProvider = ({children}) => {
         const [categoriaActual, setCategoriasActual] = useState(categorias[0])
 
     // Function
-        const handleClickCategoria = () => {
-            console.log('click en categoria')
-        }
-    //  ----------------------------------------
+        const handleClickCategoria = id => {
+            // filter no regresa un nuevo arreglo con las categoria que seleccionamos
+            const categoria = categorias.filter(categoria => categoria.id === id)[0] // [0] convierte el arrgelo a obj
+            console.log(categoria) // arreglo
+            // console.log(categoriaActual) // objeto
 
+            // siempre usar la funcion modificadora no asignacion directa
+            setCategoriasActual(categoria)
+        }
+                    
     return (
         // en lugar de pasar los props de componente en componente, lo que coloco en el retrun, 
         // cuando lo mando a llamar voy a tener acceso a esa informacion
