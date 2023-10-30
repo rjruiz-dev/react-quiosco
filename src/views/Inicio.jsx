@@ -1,13 +1,14 @@
-import { productos } from '../data/productos'
+import { productos as data} from '../data/productos'
 import Producto from "../components/Producto"
 import useQuiosco from '../hooks/useQuiosco';
 
 export default function Inicio() {
 
     const { categoriaActual } = useQuiosco()
-    console.log(categoriaActual)
+    // console.log(categoriaActual)
 
-    console.log(productos)
+    // console.log(productos)
+    const productos = data.filter(producto => producto.categoria_id === categoriaActual.id)
     return (
         
         // <> </> fragment
