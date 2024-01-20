@@ -3,7 +3,7 @@ import useQuiosco from "../hooks/useQuiosco"
 
 export default function Producto({producto}) {
 
-    const { handleClickModal } = useQuiosco();
+    const { handleClickModal, handleSetProducto } = useQuiosco();
     // console.log(producto)
     // aplica destructuring 
     const { nombre, imagen, precio} = producto
@@ -26,6 +26,7 @@ export default function Producto({producto}) {
                     className="bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold"
                     onClick={() => {
                         handleClickModal(); // registrar el evento
+                        handleSetProducto(producto);
                     }}
                 >
                     Agregar

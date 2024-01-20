@@ -9,6 +9,7 @@ const QuioscoProvider = ({children}) => {
         const [categorias, setCategorias] =  useState(categoriasDB);
         const [categoriaActual, setCategoriasActual] = useState(categorias[0])
         const [modal, setModal] = useState(false) // modal no va a estar visible, hasta q el usuario presione
+        const [producto, setProducto] = useState({}) // los prod son obj e inicia como obj vacio "{}"
 
     // Function
         const handleClickCategoria = id => {
@@ -25,6 +26,10 @@ const QuioscoProvider = ({children}) => {
         const handleClickModal = () => {
             setModal(!modal)
         }
+
+        const handleSetProducto = producto => {
+            setProducto(producto)
+        }
                     
     return (
         // en lugar de pasar los props de componente en componente, lo que coloco en el retrun, 
@@ -39,6 +44,8 @@ const QuioscoProvider = ({children}) => {
                     handleClickCategoria,
                     modal,              // consumido desde layout
                     handleClickModal,   // consumido desde producto
+                    producto,
+                    handleSetProducto   // consumido desde producto
                 }
             }
         >{children}</QuioscoContext.Provider>

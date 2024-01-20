@@ -4,7 +4,8 @@ import Modal from 'react-modal'
 import { Outlet } from 'react-router-dom' // Para visualizar el hijo
 import  Sidebar  from '../components/Sidebar'
 import  Resumen  from '../components/Resumen'
-import useQuiosco from '../hooks/useQuiosco'
+import  useQuiosco from '../hooks/useQuiosco'
+import  ModalProducto from '../components/ModalProducto'
 
 // Funciones
 
@@ -19,6 +20,9 @@ const customStyles = {
       transform: "translate(-50%, -50%)",
     },
   };
+
+// Montar el modal 
+Modal.setAppElement('#root')
 
 export default function Layout() {
 
@@ -37,16 +41,10 @@ export default function Layout() {
                 <Resumen />
             </div>
 
-            {/* indicamos que es codigo de js */}
-            { modal && (
-                <Modal isOpen={modal} style={customStyles}>
-                    <p>Desde modal</p>
-                    <button onClick={handleClickModal}>
-                        Cerrar
-                    </button>
-                </Modal>
-
-            )}
+            {/* indicamos que es codigo de js */}           
+            <Modal isOpen={modal} style={customStyles}>
+                <ModalProducto />
+            </Modal>            
         </>        
     )
 }
