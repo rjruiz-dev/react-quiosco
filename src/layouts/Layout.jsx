@@ -4,12 +4,17 @@
 import { Outlet } from 'react-router-dom' // Para visualizar el hijo
 import  Sidebar  from '../components/Sidebar'
 import  Resumen  from '../components/Resumen'
+import useQuiosco from '../hooks/useQuiosco'
 
 // Funciones
 
 // Hojas de estilo 
 
 export default function Layout() {
+
+    const {modal} = useQuiosco();
+    console.log(modal);
+    
     return (
         <div className='md:flex'> {/* de izq a der tamaño mediano */}
             <Sidebar />

@@ -8,6 +8,7 @@ const QuioscoProvider = ({children}) => {
     // State
         const [categorias, setCategorias] =  useState(categoriasDB);
         const [categoriaActual, setCategoriasActual] = useState(categorias[0])
+        const [modal, setModal] = useState(false) // modal no va a estar visible, hasta q el usuario presione
 
     // Function
         const handleClickCategoria = id => {
@@ -18,6 +19,11 @@ const QuioscoProvider = ({children}) => {
 
             // siempre usar la funcion modificadora no asignacion directa
             setCategoriasActual(categoria)
+        }
+
+        // Funcion para mostrar y para cerrar el modal 
+        const handleClickModal = () => {
+            setModal(!modal)
         }
                     
     return (
@@ -30,7 +36,9 @@ const QuioscoProvider = ({children}) => {
                     // lo que esta aqui, va a estar disponible en toda la app
                     categorias,
                     categoriaActual,
-                    handleClickCategoria
+                    handleClickCategoria,
+                    modal,              // consumido desde layout
+                    handleClickModal,   // consumido desde producto
                 }
             }
         >{children}</QuioscoContext.Provider>
