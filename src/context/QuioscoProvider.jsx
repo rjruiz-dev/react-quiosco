@@ -10,6 +10,7 @@ const QuioscoProvider = ({children}) => {
         const [categoriaActual, setCategoriasActual] = useState(categorias[0])
         const [modal, setModal] = useState(false) // modal no va a estar visible, hasta q el usuario presione
         const [producto, setProducto] = useState({}) // los prod son obj e inicia como obj vacio "{}"
+        const [pedido, setPedido] = useState([]) // inicia como arr vacio "[]"
 
     // Function
         const handleClickCategoria = id => {
@@ -45,7 +46,8 @@ const QuioscoProvider = ({children}) => {
                     modal,              // consumido desde layout
                     handleClickModal,   // consumido desde producto
                     producto,
-                    handleSetProducto   // consumido desde producto
+                    handleSetProducto,  // consumido desde producto
+                    pedido
                 }
             }
         >{children}</QuioscoContext.Provider>
