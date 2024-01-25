@@ -10,7 +10,7 @@ const QuioscoProvider = ({children}) => {
         const [categoriaActual, setCategoriasActual] = useState(categorias[0])
         const [modal, setModal] = useState(false) // modal no va a estar visible, hasta q el usuario presione
         const [producto, setProducto] = useState({}) // los prod son obj e inicia como obj vacio "{}"
-        const [pedido, setPedido] = useState([]) // inicia como arr vacio "[]"
+        const [pedido, setPedido] = useState([]) // inicia como arr vacio "[]" 
 
     // Function
         const handleClickCategoria = id => {
@@ -31,6 +31,14 @@ const QuioscoProvider = ({children}) => {
         const handleSetProducto = producto => {
             setProducto(producto)
         }
+
+        // con destructuring ...producto del lado der: eliminamos los elementos del obj q no necesitamos como categoria_id, imagen
+        const handleAgregarPedido = ({categoria_id, imagen, ...producto}) => { // ahora si es un obj q podemos ir argregando al pedido
+            // console.log(producto)
+            // no utlizar .push modifica el arr original, por eso utilizar setPedido
+            // toma una copia de lo que hay en pedido y agregale este producto nuevo
+            setPedido([...pedido, producto])
+        }
                     
     return (
         // en lugar de pasar los props de componente en componente, lo que coloco en el retrun, 
@@ -47,7 +55,8 @@ const QuioscoProvider = ({children}) => {
                     handleClickModal,   // consumido desde producto
                     producto,
                     handleSetProducto,  // consumido desde producto
-                    pedido
+                    pedido,
+                    handleAgregarPedido // consumido desde modalProducto
                 }
             }
         >{children}</QuioscoContext.Provider>
