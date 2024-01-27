@@ -4,6 +4,10 @@ import { formatearDinero } from "../helpers"
 
 export default function Resumen() {
     const {pedido, total} = useQuiosco();
+
+    const comprobarPedido = () => pedido.length === 0;
+    console.log(comprobarPedido())
+
     return (
         <aside className="w-72 h-screen overflow-y-scroll p-5">
             <h1 className="text-4xl font-black">
@@ -37,8 +41,10 @@ export default function Resumen() {
                 <div className="mt-5">
                     <input 
                         type="submit"
-                        className="bg-indigo-600 hover:bg-indigo-800 px-5 py-2 rounded uppercase font-bold text-white w-full cursor-pointer" 
+                        className={`${comprobarPedido() ? 'bg-indigo-100' : 'bg-indigo-600 hover:bg-indigo-800'}
+                        px-5 py-2 rounded uppercase font-bold text-white w-full cursor-pointer`}
                         value="Confirmar Pedido"
+                        disabled = {comprobarPedido()} // si retorna true deshabilita el boton
                     />
                 </div>
             </form>
