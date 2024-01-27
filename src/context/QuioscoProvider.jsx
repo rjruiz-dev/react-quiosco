@@ -59,6 +59,13 @@ const QuioscoProvider = ({children}) => {
             setProducto(productoActualizar)
             setModal(!modal)
         }
+
+        const handleEliminarProductoPedido = id => {           
+            // traer todos los que sean diferentes al id que le estoy pasando, regresa un nuevo arr
+            const pedidoActualizado = pedido.filter(producto => producto.id !== id)
+            setPedido(pedidoActualizado)
+            toast.success('Eliminado del pedido')
+        }
                     
     return (
         // en lugar de pasar los props de componente en componente, lo que coloco en el retrun, 
@@ -77,7 +84,8 @@ const QuioscoProvider = ({children}) => {
                     handleSetProducto,      // consumido desde producto
                     pedido,
                     handleAgregarPedido,    // consumido desde modalProducto
-                    handleEditarCantidad    // consumido desde resumenProducto
+                    handleEditarCantidad,           // consumido desde resumenProducto
+                    handleEliminarProductoPedido    // consumido desde resumenProducto
                 }
             }
         >{children}</QuioscoContext.Provider>
