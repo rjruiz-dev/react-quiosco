@@ -34,7 +34,7 @@ const QuioscoProvider = ({children}) => {
         }
 
         // con destructuring ...producto del lado der: eliminamos los elementos del obj q no necesitamos como categoria_id, imagen
-        const handleAgregarPedido = ({categoria_id, imagen, ...producto}) => { // ahora si es un obj q podemos ir argregando al pedido
+        const handleAgregarPedido = ({categoria_id, ...producto}) => { // ahora si es un obj q podemos ir argregando al pedido
             // console.log(producto)
            
             if(pedido.some( pedidoState => pedidoState.id === producto.id)) { 
@@ -52,6 +52,13 @@ const QuioscoProvider = ({children}) => {
                 toast.success('Agregado al pedido')
             }
         }
+
+        const handleEditarCantidad = id => {
+            // console.log(id)
+            const productoActualizar = pedido.filter(producto => producto.id === id)[0]
+            setProducto(productoActualizar)
+            setModal(!modal)
+        }
                     
     return (
         // en lugar de pasar los props de componente en componente, lo que coloco en el retrun, 
@@ -64,12 +71,13 @@ const QuioscoProvider = ({children}) => {
                     categorias,
                     categoriaActual,
                     handleClickCategoria,
-                    modal,              // consumido desde layout
-                    handleClickModal,   // consumido desde producto
+                    modal,                  // consumido desde layout
+                    handleClickModal,       // consumido desde producto
                     producto,
-                    handleSetProducto,  // consumido desde producto
+                    handleSetProducto,      // consumido desde producto
                     pedido,
-                    handleAgregarPedido // consumido desde modalProducto
+                    handleAgregarPedido,    // consumido desde modalProducto
+                    handleEditarCantidad    // consumido desde resumenProducto
                 }
             }
         >{children}</QuioscoContext.Provider>
