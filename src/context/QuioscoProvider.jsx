@@ -1,4 +1,4 @@
-import { createContext, useState  }     from "react" // viene definida en react
+import { createContext, useState, useEffect  }     from "react" // viene definida en react
 import { toast }                        from "react-toastify" // contiene el evento y el tipo de tost que se quiere mostrar
 import { categorias as categoriasDB }   from "../data/categoria"
 // este context va a tener acceso a un metodo llamado provider
@@ -7,11 +7,21 @@ const QuioscoContext = createContext()
 const QuioscoProvider = ({children}) => {
     // Aqui toda la logica
     // State
-        const [categorias, setCategorias] =  useState(categoriasDB);
+        const [categorias, setCategorias]            =  useState(categoriasDB);
         const [categoriaActual, setCategoriasActual] = useState(categorias[0])
-        const [modal, setModal] = useState(false) // modal no va a estar visible, hasta q el usuario presione
-        const [producto, setProducto] = useState({}) // los prod son obj e inicia como obj vacio "{}"
-        const [pedido, setPedido] = useState([]) // inicia como arr vacio "[]" 
+        const [modal, setModal]                      = useState(false)  // modal no va a estar visible, hasta q el usuario presione
+        const [producto, setProducto]                = useState({})     // los prod son obj e inicia como obj vacio "{}"
+        const [pedido, setPedido]                    = useState([])     // inicia como arr vacio "[]" 
+        const [total, setTotal]                      = useState([0]) 
+
+        // solo se ejecuta 1 ves si se le pasa un arr vacio
+        useEffect(() => {
+            // total es un acumulado
+            // producto es el elemento  sobre cual esta iterenado
+            const nuevoTotal = pedido.reduce((total, producto) => (producto.precio * producto.cantidad) 
+            + total, 0)
+            setTotal(nuevoTotal)
+        }, [pedido]) // cada ves q pedido cambia se ejecuta el useEffect para ir calculando el total
 
     // Function
         const handleClickCategoria = id => {
@@ -85,7 +95,8 @@ const QuioscoProvider = ({children}) => {
                     pedido,
                     handleAgregarPedido,    // consumido desde modalProducto
                     handleEditarCantidad,           // consumido desde resumenProducto
-                    handleEliminarProductoPedido    // consumido desde resumenProducto
+                    handleEliminarProductoPedido,   // consumido desde resumenProducto
+                    total                           // consumido desde resumen
                 }
             }
         >{children}</QuioscoContext.Provider>

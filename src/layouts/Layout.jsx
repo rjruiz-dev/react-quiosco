@@ -49,7 +49,9 @@ export default function Layout() {
             </Modal>
 
             {/* registramos el componente toast */}
-            <ToastContainer />
+            <ToastContainer 
+                theme="dark"
+            />
         </>        
     )
 }
