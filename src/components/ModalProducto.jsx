@@ -1,13 +1,29 @@
-import { useState } from "react" // viene definida en react
+import { useState, useEffect } from "react" // viene definida en react
 import useQuiosco from "../hooks/useQuiosco" // Importar el hook para tener acceso al producto
 import { formatearDinero } from "../helpers"
 
 // Extrar el producto y pasarlo al modal ventaja de context api
 export default function ModalProducto(){
 
-    const { producto, handleClickModal, handleAgregarPedido } = useQuiosco();
+    const { producto, handleClickModal, handleAgregarPedido, pedido } = useQuiosco();
     const [cantidad, setCantidad] = useState(1)
-    
+    const [edicion, setEdicion] = useState(false)
+   
+    // En este caso cada ves que el pedido cambie se vuelve a ejecutar (detectar si el producto que estoy abriendo ya se encuentra en el pedido)
+    // Evitamos duplicados de elementos y podemos act las cantidades    
+    useEffect(() => { // useEffect siempre va a tener un callback
+        // console.log('componente listo')
+        if(pedido.some( pedidoState => pedidoState.id === producto.id)) {
+            // console.log('Si esta en el pedido...')
+            const productoEdicion = pedido.filter( pedidoState => pedidoState.id === producto.id)[0]
+
+            setCantidad(productoEdicion.cantidad)
+            setEdicion(true)
+        }/*else { console.log('No esta en el pedido') }*/
+    },
+    // [] arreglo de dependencias son opc si va vacio, el useEfect se ejecuta 1 sola ves
+    [pedido])
+
     return (
         <div className="md:flex items-center gap-10">
            {/* Del lado izq la imagen y del lado der la informacion  */}
@@ -74,7 +90,7 @@ export default function ModalProducto(){
                         handleClickModal()
                     }}
                 >
-                    Añadir al pedido
+                    {edicion ? 'Guardar Cambios' : 'Añadir al pedido'}
                 </button>
             </div>
        </div>
