@@ -1,5 +1,6 @@
-import { createContext, useState  } from "react" // viene definida en react
-import { categorias as categoriasDB } from "../data/categoria"
+import { createContext, useState  }     from "react" // viene definida en react
+import { toast }                        from "react-toastify" // contiene el evento y el tipo de tost que se quiere mostrar
+import { categorias as categoriasDB }   from "../data/categoria"
 // este context va a tener acceso a un metodo llamado provider
 const QuioscoContext = createContext()
 
@@ -42,11 +43,13 @@ const QuioscoProvider = ({children}) => {
                 // cuando presione en agregar itera sobre todo el arr e identifica a cual act la cant, no reescribir ni agregarlo al final del arr
                 const pedidoActualizado = pedido.map( pedidoState => pedidoState.id === producto.
                 id ? producto : pedidoState) // si identificas retorna producto caso contrario retorna pedidoState lo q hay en memoria
-                setPedido(pedidoActualizado)          
+                setPedido(pedidoActualizado) 
+                toast.success('Guardado Correctamente')         
             } else {
                 // no utlizar .push modifica el arr original, por eso utilizar setPedido
                 // toma una copia de lo que hay en pedido y agregale este producto nuevo
                 setPedido([...pedido, producto])
+                toast.success('Agregado al pedido')
             }
         }
                     

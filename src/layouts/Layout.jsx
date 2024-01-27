@@ -1,11 +1,13 @@
 // Dependencias o Hooks
 import Modal from 'react-modal'
 // Componentes
-import { Outlet } from 'react-router-dom' // Para visualizar el hijo
-import  Sidebar  from '../components/Sidebar'
-import  Resumen  from '../components/Resumen'
-import  useQuiosco from '../hooks/useQuiosco'
-import  ModalProducto from '../components/ModalProducto'
+import { ToastContainer }   from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css"
+import { Outlet }           from 'react-router-dom' // Para visualizar el hijo
+import  Sidebar             from '../components/Sidebar'
+import  Resumen             from '../components/Resumen'
+import  useQuiosco          from '../hooks/useQuiosco'
+import  ModalProducto       from '../components/ModalProducto'
 
 // Funciones
 
@@ -44,7 +46,10 @@ export default function Layout() {
             {/* indicamos que es codigo de js */}           
             <Modal isOpen={modal} style={customStyles}>
                 <ModalProducto />
-            </Modal>            
+            </Modal>
+
+            {/* registramos el componente toast */}
+            <ToastContainer />
         </>        
     )
 }
