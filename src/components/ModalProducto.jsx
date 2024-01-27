@@ -86,6 +86,7 @@ export default function ModalProducto(){
                     font-bold uppercase rounded"
                     // // con ...producto del lado izq: agregamos la cantidad dentro del obj producto
                     onClick={() => {
+                        // Se debe comporbar si el producto ya existe en el pedido, si existe identificar q elemento es y reescribirlo, sino existe lo agregamos
                         handleAgregarPedido({...producto, cantidad})
                         handleClickModal()
                     }}

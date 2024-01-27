@@ -35,9 +35,19 @@ const QuioscoProvider = ({children}) => {
         // con destructuring ...producto del lado der: eliminamos los elementos del obj q no necesitamos como categoria_id, imagen
         const handleAgregarPedido = ({categoria_id, imagen, ...producto}) => { // ahora si es un obj q podemos ir argregando al pedido
             // console.log(producto)
-            // no utlizar .push modifica el arr original, por eso utilizar setPedido
-            // toma una copia de lo que hay en pedido y agregale este producto nuevo
-            setPedido([...pedido, producto])
+           
+            if(pedido.some( pedidoState => pedidoState.id === producto.id)) { 
+                
+                // el .map permite iterar sobre todos los elementos sin modificar el arr original, retorna un arr nuevo ya modificado
+                // cuando presione en agregar itera sobre todo el arr e identifica a cual act la cant, no reescribir ni agregarlo al final del arr
+                const pedidoActualizado = pedido.map( pedidoState => pedidoState.id === producto.
+                id ? producto : pedidoState) // si identificas retorna producto caso contrario retorna pedidoState lo q hay en memoria
+                setPedido(pedidoActualizado)          
+            } else {
+                // no utlizar .push modifica el arr original, por eso utilizar setPedido
+                // toma una copia de lo que hay en pedido y agregale este producto nuevo
+                setPedido([...pedido, producto])
+            }
         }
                     
     return (
