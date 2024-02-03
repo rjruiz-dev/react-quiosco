@@ -1,7 +1,10 @@
 import { createContext, useState, useEffect  }     from "react" // viene definida en react
 import { toast }                        from "react-toastify" // contiene el evento y el tipo de tost que se quiere mostrar
+
 // import { categorias as categoriasDB }   from "../data/categoria"
-import axios                            from "axios" // para consumir API
+//2 import axios                            from "axios" // para consumir API
+import clienteAxios from "../config/axios"
+
 // este context va a tener acceso a un metodo llamado provider
 const QuioscoContext = createContext()
 
@@ -27,8 +30,9 @@ const QuioscoProvider = ({children}) => {
         const obtenerCategorias = async () => {
             try {
                 console.log(import.meta.env.VITE_API_URL)
-                // const respuesta = await axios('http://localhost/api/categorias') // la url de la api               
-                const {data} = await axios(`${import.meta.env.VITE_API_URL}/api/categorias`) // la url de la api
+                //1 const respuesta = await axios('http://localhost/api/categorias') // la url de la api               
+                //2 const {data} = await axios(`${import.meta.env.VITE_API_URL}/api/categorias`) // la url de la api
+                const {data} = await clienteAxios('/api/categorias') // la url de la api
                 // console.log(data.data)
                 
                 // una ves que tengo las cat puedo seterla en el state con setCategorias()
