@@ -26,8 +26,9 @@ const QuioscoProvider = ({children}) => {
 
         const obtenerCategorias = async () => {
             try {
-                // const respuesta = await axios('http://localhost/api/categorias') // la url de la api
-                const {data} = await axios('http://localhost/api/categorias') // la url de la api
+                console.log(import.meta.env.VITE_API_URL)
+                // const respuesta = await axios('http://localhost/api/categorias') // la url de la api               
+                const {data} = await axios(`${import.meta.env.VITE_API_URL}/api/categorias`) // la url de la api
                 // console.log(data.data)
                 
                 // una ves que tengo las cat puedo seterla en el state con setCategorias()
