@@ -1,14 +1,15 @@
 import { createContext, useState, useEffect  }     from "react" // viene definida en react
 import { toast }                        from "react-toastify" // contiene el evento y el tipo de tost que se quiere mostrar
-import { categorias as categoriasDB }   from "../data/categoria"
+// import { categorias as categoriasDB }   from "../data/categoria"
+import axios                            from "axios" // para consumir API
 // este context va a tener acceso a un metodo llamado provider
 const QuioscoContext = createContext()
 
 const QuioscoProvider = ({children}) => {
     // Aqui toda la logica
     // State
-        const [categorias, setCategorias]            =  useState(categoriasDB);
-        const [categoriaActual, setCategoriasActual] = useState(categorias[0])
+        const [categorias, setCategorias]            = useState([])  //useState(categoriasDB); cambiamos el inicio a arr vacio
+        const [categoriaActual, setCategoriasActual] = useState({}) //useState(categorias[0]) cambiamos el inicio a obj vacio
         const [modal, setModal]                      = useState(false)  // modal no va a estar visible, hasta q el usuario presione
         const [producto, setProducto]                = useState({})     // los prod son obj e inicia como obj vacio "{}"
         const [pedido, setPedido]                    = useState([])     // inicia como arr vacio "[]" 
@@ -22,6 +23,29 @@ const QuioscoProvider = ({children}) => {
             + total, 0)
             setTotal(nuevoTotal)
         }, [pedido]) // cada ves q pedido cambia se ejecuta el useEffect para ir calculando el total
+
+        const obtenerCategorias = async () => {
+            try {
+                // const respuesta = await axios('http://localhost/api/categorias') // la url de la api
+                const {data} = await axios('http://localhost/api/categorias') // la url de la api
+                // console.log(data.data)
+                
+                // una ves que tengo las cat puedo seterla en el state con setCategorias()
+                setCategorias(data.data)
+
+                // categoria incial
+                setCategoriasActual(data.data[0])
+            } catch (error) {
+                console.log(error)
+                
+            }
+        }
+
+        // obtengo las categorias tan pronto como cargue el componente utilzo useEffect()
+        useEffect(() => {
+            obtenerCategorias()
+        }, []) // [] para que solamente sea cuando cargue esdte componente
+
 
     // Function
         const handleClickCategoria = id => {
