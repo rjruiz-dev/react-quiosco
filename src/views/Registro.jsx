@@ -1,6 +1,7 @@
 import { createRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import clienteAxios from '../config/axios';
+import Alerta from '../components/Alerta';
 
 export default function Registro() {
 
@@ -9,6 +10,9 @@ export default function Registro() {
     const emailRef                = createRef();
     const passwordRef             = createRef();
     const passwordConfirmationRef = createRef();
+
+    // creamos un state para las validaciones (el usuario puede ingresar informacion incorrecta, pero luego corrige sobre el mismo input, aun asi tenemos las validaciones de los demas inputs)
+    const [errores, setErrores]  = useState([])
 
     // click a btn enviar del formulario se manda a llamar esta funcion
     const handleSubmit = async e => {
@@ -29,7 +33,8 @@ export default function Registro() {
             const respuesta = await clienteAxios.post('/api/registro', datos);
             console.log(respuesta);
         } catch (error) {
-            console.log(error);
+            // console.log(error.response.data.errors);
+            setErrores(Object.values(error.response.data.errors)) // con Object.values(): unificamos en un mismo array todas las errores de validaciones del formulario
         }
             
             
@@ -42,7 +47,11 @@ export default function Registro() {
             <p>Crea tu Cuenta llenando el formulario</p>
 
             <div className="bg-white shadow-md rounded-md mt-10 px-5 py-10">
-                <form onSubmit={handleSubmit}>
+                <form 
+                    onSubmit={handleSubmit}
+                    noValidate
+                >
+                    {errores ? errores.map((error, i) => <Alerta key={i}>{error}</Alerta>) : null}
                     <div className="mb-4">
                         <label
                             className="text-slate-800"
