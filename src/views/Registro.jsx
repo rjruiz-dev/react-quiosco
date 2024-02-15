@@ -31,16 +31,12 @@ export default function Registro() {
             // el obj que enviamos al backend
             // console.log(datos);
             const respuesta = await clienteAxios.post('/api/registro', datos);
-            console.log(respuesta);
+            console.log(data.token);
         } catch (error) {
             // console.log(error.response.data.errors);
             setErrores(Object.values(error.response.data.errors)) // con Object.values(): unificamos en un mismo array todas las errores de validaciones del formulario
         }
-            
-            
-
     }
-
     return (
         <>
             <h1 className="text-4xl font-black">Crea tu cuenta</h1>
