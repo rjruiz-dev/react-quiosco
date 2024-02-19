@@ -25,6 +25,7 @@ export default function Login() {
             const respuesta = await clienteAxios.post('/api/login', datos);
             console.log(data.token);
         } catch (error) {           
+            // console.log(error);
             setErrores(Object.values(error.response.data.errors)) 
         }
     }
@@ -39,7 +40,6 @@ export default function Login() {
                     noValidate
                 >
                     {errores ? errores.map((error, i) => <Alerta key={i}>{error}</Alerta>) : null}
-                    
                     <div className="mb-4">
                         <label
                             className="text-slate-800"
