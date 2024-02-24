@@ -32,6 +32,7 @@ export default function Registro() {
             // console.log(datos);
             const respuesta = await clienteAxios.post('/api/registro', datos);
             console.log(data.token);
+            setErrores([])
         } catch (error) {
             // console.log(error.response.data.errors);
             setErrores(Object.values(error.response.data.errors)) // con Object.values(): unificamos en un mismo array todas las errores de validaciones del formulario
