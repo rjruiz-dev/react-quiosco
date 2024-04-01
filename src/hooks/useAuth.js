@@ -42,7 +42,19 @@ export const useAuth = ({ middleware, url }) => {
         
     }
 
-    const logout = () => {
+    const logout = async () => {
+        // console.log('click');
+        try {
+            await clienteAxios.post('api/logout', null, {
+                headers: { // con esto sabe a que usuario debe revocarle el token
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            localStorage.removeItem('AUTH_TOKEN')
+            await mutate(undefined)
+        } catch (error) {
+            throw Error(error?.response?.data?.errors)
+        }
         
     }
 
