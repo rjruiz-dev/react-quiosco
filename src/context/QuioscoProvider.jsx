@@ -105,6 +105,23 @@ const QuioscoProvider = ({children}) => {
             setPedido(pedidoActualizado)
             toast.success('Eliminado del pedido')
         }
+
+        const handleSubmitNuevaOrden = async () => {
+            const token = localStorage.getItem('AUTH_TOKEN')
+            try {
+                await clienteAxios.post('/api/pedidos', 
+                {
+
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+            }catch (error) {
+                console.log(error);
+            } 
+        }
                     
     return (
         // en lugar de pasar los props de componente en componente, lo que coloco en el retrun, 
@@ -125,7 +142,8 @@ const QuioscoProvider = ({children}) => {
                     handleAgregarPedido,    // consumido desde modalProducto
                     handleEditarCantidad,           // consumido desde resumenProducto
                     handleEliminarProductoPedido,   // consumido desde resumenProducto
-                    total                           // consumido desde resumen
+                    total,                          // consumido desde resumen
+                    handleSubmitNuevaOrden         // consumido desde resumen
                 }
             }
         >{children}</QuioscoContext.Provider>
