@@ -5,7 +5,7 @@ import { useAuth } from "../hooks/useAuth"
 export default function Sidebar() {
 
     const { categorias } = useQuiosco()
-    const { logout } = useAuth({ middleware: 'auth'})
+    const { logout, user } = useAuth({ middleware: 'auth'})
     // Lo que este dentro del return es lo que se muestra en pantalla
     return (
         <aside className="md:w-72">
@@ -16,6 +16,8 @@ export default function Sidebar() {
                     alt="Imagen Logo"
                 />
             </div>
+
+            <p className="my-10 text-2xl font-black text-center">Hola: {user?.name}</p>
 
             {/* Comunicamos desde Sidebar hacia Categoria */}
             <div className="mt-10">

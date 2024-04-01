@@ -1,7 +1,7 @@
 import { createRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import clienteAxios from '../config/axios';
 import Alerta from '../components/Alerta';
+import { useAuth } from '../hooks/useAuth';
 
 export default function Registro() {
 
@@ -13,6 +13,7 @@ export default function Registro() {
 
     // creamos un state para las validaciones (el usuario puede ingresar informacion incorrecta, pero luego corrige sobre el mismo input, aun asi tenemos las validaciones de los demas inputs)
     const [errores, setErrores]  = useState([])
+    const {registro} = useAuth({middleware: 'guest', url: '/'})
 
     // click a btn enviar del formulario se manda a llamar esta funcion
     const handleSubmit = async e => {
@@ -27,16 +28,8 @@ export default function Registro() {
             password: passwordRef.current.value,
             password_confirmation: passwordConfirmationRef.current.value
         }
-        try {
-            // el obj que enviamos al backend
-            // console.log(datos);
-            const respuesta = await clienteAxios.post('/api/registro', datos);
-            console.log(data.token);
-            setErrores([])
-        } catch (error) {
-            // console.log(error.response.data.errors);
-            setErrores(Object.values(error.response.data.errors)) // con Object.values(): unificamos en un mismo array todas las errores de validaciones del formulario
-        }
+        
+        registro(datos, setErrores)
     }
     return (
         <>

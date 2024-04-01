@@ -38,8 +38,18 @@ export const useAuth = ({ middleware, url }) => {
         }
     }
 
-    const registro = () => {
-        
+    const registro = async (datos, setErrores) => {
+        try {           
+            // console.log(datos);
+            const {data} = await clienteAxios.post('/api/registro', datos);
+            // console.log(data.token);
+            localStorage.setItem('AUTH_TOKEN', data.token);        
+            setErrores([]); 
+            await mutate() // es una funcion que viene incluida en swr vuele a llamar  o revalida           
+        } catch (error) {
+            // console.log(error.response.data.errors);
+            setErrores(Object.values(error.response.data.errors)) // con Object.values(): unificamos en un mismo array todas las errores de validaciones del formulario
+        }
     }
 
     const logout = async () => {
