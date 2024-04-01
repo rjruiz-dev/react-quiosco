@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import useSWR from "swr";
+import { useNavigate } from "react-router-dom";
 import clienteAxios from "../config/axios";
 
 // cada instancia del hook tendra middleware, url
@@ -6,13 +8,13 @@ import clienteAxios from "../config/axios";
 export const useAuth = ({ middleware, url }) => {
     
     const token = localStorage.getItem('AUTH_TOKEN')
-
+    const navigate = useNavigate();
     
-    const { data: user, error, mutate } = useSWR('/api/user', ()=> 
+    const { data: user, error, mutate } = useSWR('/api/user', () => 
         // el callback llama en automatico a clienteAxios
         clienteAxios('api/user', {
             headers: {
-                // Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`
             }
         })
         // promesas porque useSWR no es asincrono
@@ -46,7 +48,16 @@ export const useAuth = ({ middleware, url }) => {
 
     console.log('user ', user);
     console.log('error ', error);
+    console.log('middleware ', middleware);
+    console.log('url ', url);
     
+    // escucha por los cambios que sucedan en user como en error, en caso de que alla un usuario lo llevamos a la pagina para que pueda realixar el pedido
+    useEffect(() => {
+        if(middleware === 'guest' && url && user) {
+            navigate(url)
+        }
+    }, [user, error])
+
     return {
         login,
         registro,
