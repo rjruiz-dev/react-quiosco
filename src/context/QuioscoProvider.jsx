@@ -112,7 +112,14 @@ const QuioscoProvider = ({children}) => {
                 await clienteAxios.post('/api/pedidos', 
                 {
                     // pasar los valores hacia PedidoController.php
-                    total 
+                    total,
+                    // pedido.map retorna en productos un nuevo arreglo
+                    productos: pedido.map(producto => {
+                        return {
+                            id:       producto.id,
+                            cantidad: producto.cantidad
+                        }
+                    })
                 },
                 {
                     headers: {
