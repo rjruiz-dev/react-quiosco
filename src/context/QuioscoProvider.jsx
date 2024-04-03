@@ -111,7 +111,8 @@ const QuioscoProvider = ({children}) => {
             try {
                 await clienteAxios.post('/api/pedidos', 
                 {
-
+                    // pasar los valores hacia PedidoController.php
+                    total 
                 },
                 {
                     headers: {
