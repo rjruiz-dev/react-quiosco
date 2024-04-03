@@ -106,10 +106,10 @@ const QuioscoProvider = ({children}) => {
             toast.success('Eliminado del pedido')
         }
 
-        const handleSubmitNuevaOrden = async () => {
+        const handleSubmitNuevaOrden = async (logout) => {
             const token = localStorage.getItem('AUTH_TOKEN')
             try {
-                await clienteAxios.post('/api/pedidos', 
+                const { data } = await clienteAxios.post('/api/pedidos', 
                 {
                     // pasar los valores hacia PedidoController.php
                     total,
@@ -126,6 +126,17 @@ const QuioscoProvider = ({children}) => {
                         Authorization: `Bearer ${token}`
                     }
                 })
+                // .message es porque desde PedidoController.php se esta retornando como message
+                toast.success(data.message)
+                setTimeout(() => {
+                    setPedido([])
+                }, 1000); // despues de 1seg setPedido estara vacio
+
+                // cerrar la sesion del usuario
+                setTimeout(() => {
+                    localStorage.removeItem('AUTH_TOKEN'); // remover el token
+                    logout();
+                }, 3000)
             }catch (error) {
                 console.log(error);
             } 
